@@ -5,20 +5,44 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    enum livingState { alive, dead }
+
+    livingState currentState;
+    AudioSource audioSource;
+
+    const float levelLoadDelay = 1f;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        currentState = livingState.alive;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         switch (collision.gameObject.tag)
         {
             case "Launch Pad":
-                Debug.Log("You're on " + collision.gameObject.tag + " right now");
                 break;
             case "Landing Pad":
-                LoadNextLevel();
+                StartCollisionSequence();
                 break;
             default:
-                ReloadLevel();
+                currentState = livingState.dead;
+                StartCollisionSequence();
                 break;
         }
+    }
+
+    void StartCollisionSequence()
+    {
+        GetComponent<Movement>().enabled = false;
+        audioSource.Stop();
+
+        if (currentState == livingState.alive)
+            Invoke("LoadNextLevel", levelLoadDelay);
+        else
+            Invoke("ReloadLevel", 1f);
     }
 
     void LoadNextLevel()
@@ -34,7 +58,7 @@ public class CollisionHandler : MonoBehaviour
     void ReloadLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
+        
         SceneManager.LoadScene(currentSceneIndex);
     }
 }
