@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 6811891862544213022}
   - component: {fileID: 6811891862544213023}
   - component: {fileID: 6811891862544212992}
-  - component: {fileID: 192243247}
   - component: {fileID: 2763863651500875555}
   - component: {fileID: 192243253}
+  - component: {fileID: 2636352417314462202}
+  - component: {fileID: 192243247}
   m_Layer: 0
   m_Name: Rocket Ship
   m_TagString: Untagged
@@ -98,20 +99,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &192243247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6811891862544212993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fb7a18ac7a49c5468afba76e8970bc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thrustSpeed: 20
-  rotationSpeed: 120
 --- !u!54 &2763863651500875555
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -224,3 +211,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2636352417314462202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6811891862544212993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db14aa476cf9c624b90bfb8e86814a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &192243247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6811891862544212993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb7a18ac7a49c5468afba76e8970bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thrustSpeed: 20
+  rotationSpeed: 120
