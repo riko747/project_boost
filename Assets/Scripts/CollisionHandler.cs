@@ -16,8 +16,15 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("You're on " + collision.gameObject.tag + " right now");
                 break;
             default:
-                SceneManager.LoadScene("scene0");
+                ReloadLevel();
                 break;
         }
+    }
+
+    void ReloadLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }
