@@ -15,7 +15,7 @@ public class Movement : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Thrust();
         Rotate();

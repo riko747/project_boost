@@ -13,12 +13,22 @@ public class CollisionHandler : MonoBehaviour
                 Debug.Log("You're on " + collision.gameObject.tag + " right now");
                 break;
             case "Landing Pad":
-                Debug.Log("You're on " + collision.gameObject.tag + " right now");
+                LoadNextLevel();
                 break;
             default:
                 ReloadLevel();
                 break;
         }
+    }
+
+    void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+            nextSceneIndex = 0;
+        SceneManager.LoadScene(nextSceneIndex);
     }
 
     void ReloadLevel()
