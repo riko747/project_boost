@@ -5,32 +5,49 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-    enum livingState { alive, dead }
+    [SerializeField] AudioClip winSound;
+    [SerializeField] AudioClip loseSound;
 
-    livingState currentState;
     AudioSource audioSource;
+   
+    PlayerState currentState;
 
     const float levelLoadDelay = 1f;
+    bool isTransitioning;
+    public bool playerOnGround;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        currentState = livingState.alive;
+        currentState = PlayerState.alive;
+        isTransitioning = false;
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        switch (collision.gameObject.tag)
+        if (!isTransitioning)
         {
-            case "Launch Pad":
-                break;
-            case "Landing Pad":
-                StartCollisionSequence();
-                break;
-            default:
-                currentState = livingState.dead;
-                StartCollisionSequence();
-                break;
+            switch (collision.gameObject.tag)
+            {
+                case "Launch Pad":
+                    playerOnGround = true;
+                    break;
+                case "Landing Pad":
+                    StartCollisionSequence();
+                    break;
+                default:
+                    currentState = PlayerState.dead;
+                    StartCollisionSequence();
+                    break;
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Launch Pad")
+        {
+            playerOnGround = false;
         }
     }
 
@@ -39,10 +56,18 @@ public class CollisionHandler : MonoBehaviour
         GetComponent<Movement>().enabled = false;
         audioSource.Stop();
 
-        if (currentState == livingState.alive)
+        if (currentState == PlayerState.alive)
+        {
+            isTransitioning = true;
+            audioSource.PlayOneShot(winSound);
             Invoke("LoadNextLevel", levelLoadDelay);
+        }
         else
+        {
+            isTransitioning = true;
+            audioSource.PlayOneShot(loseSound);
             Invoke("ReloadLevel", 1f);
+        }
     }
 
     void LoadNextLevel()

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    Rigidbody rigidBody;
-    AudioSource audioSource;
-
+    [SerializeField] AudioClip thrustSound;
     [SerializeField] float thrustSpeed;
     [SerializeField] float rotationSpeed;
+
+    Rigidbody rigidBody;
+    AudioSource audioSource;
+    bool playerOnGround;
+   
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
@@ -27,7 +30,7 @@ public class Movement : MonoBehaviour
         {
             rigidBody.AddRelativeForce(Vector3.up * thrustSpeed * Time.deltaTime);
             if (!audioSource.isPlaying)
-                audioSource.Play();
+                audioSource.PlayOneShot(thrustSound);
         }
         else
             audioSource.Stop();
@@ -35,11 +38,15 @@ public class Movement : MonoBehaviour
 
     void Rotate()
     {
-        rigidBody.freezeRotation = true;
-        if (Input.GetKey(KeyCode.A))
-            transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
-        else if (Input.GetKey(KeyCode.D))
-            transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
-        rigidBody.freezeRotation = false;
+        playerOnGround = GetComponent<CollisionHandler>().playerOnGround;
+        if (!playerOnGround)
+        {
+            rigidBody.freezeRotation = true;
+            if (Input.GetKey(KeyCode.A))
+                transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+            else if (Input.GetKey(KeyCode.D))
+                transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
+            rigidBody.freezeRotation = false;
+        }
     }
 }
