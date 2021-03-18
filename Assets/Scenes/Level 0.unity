@@ -504,18 +504,6 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5747812347361975055, guid: 62107e9e25a5e414eaa450893d5294ff, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747812347361975055, guid: 62107e9e25a5e414eaa450893d5294ff, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747812347361975055, guid: 62107e9e25a5e414eaa450893d5294ff, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5747812347361975055, guid: 62107e9e25a5e414eaa450893d5294ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
       objectReference: {fileID: 0}
@@ -616,10 +604,6 @@ PrefabInstance:
     - target: {fileID: 3354793060338160981, guid: 00e08b75b0b217f488a7b3bb25454f9a, type: 3}
       propertyPath: m_Name
       value: Ground
-      objectReference: {fileID: 0}
-    - target: {fileID: 3354793060338160981, guid: 00e08b75b0b217f488a7b3bb25454f9a, type: 3}
-      propertyPath: m_TagString
-      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00e08b75b0b217f488a7b3bb25454f9a, type: 3}
