@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Launch Pad
-  - Landing Pad
   - Obstacle
+  - Button
   layers:
   - Default
   - TransparentFX

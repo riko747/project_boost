@@ -32,7 +32,7 @@ public class CollisionHandler : MonoBehaviour
                 case "Launch Pad":
                     playerOnGround = true;
                     break;
-                case "Landing Pad":
+                case "Button":
                     StartCollisionSequence();
                     break;
                 default:
