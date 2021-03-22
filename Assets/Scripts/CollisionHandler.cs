@@ -8,6 +8,9 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip winSound;
     [SerializeField] AudioClip loseSound;
 
+    [SerializeField] ParticleSystem winParticleSystem;
+    [SerializeField] ParticleSystem loseParticleSystem;
+
     AudioSource audioSource;
    
     PlayerState currentState;
@@ -46,9 +49,7 @@ public class CollisionHandler : MonoBehaviour
     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Launch Pad")
-        {
             playerOnGround = false;
-        }
     }
 
     void StartCollisionSequence()
@@ -60,12 +61,14 @@ public class CollisionHandler : MonoBehaviour
         {
             isTransitioning = true;
             audioSource.PlayOneShot(winSound);
+            winParticleSystem.Play();
             Invoke("LoadNextLevel", levelLoadDelay);
         }
         else
         {
             isTransitioning = true;
             audioSource.PlayOneShot(loseSound);
+            loseParticleSystem.Play();
             Invoke("ReloadLevel", 1f);
         }
     }
