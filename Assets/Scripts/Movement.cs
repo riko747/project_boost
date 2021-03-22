@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player movement logic.
+/// </summary>
 public class Movement : MonoBehaviour
 {
     [SerializeField] ParticleSystem leftThrustParticle;
@@ -24,41 +27,65 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Thrust();
-        Rotate();
+        ProcessingThrust();
+        ProcessingRotate();
     }
 
-    void Thrust()
+    /// <summary>
+    /// Preparing to thrust.
+    /// </summary>
+    void ProcessingThrust()
     {
         if (Input.GetKey(KeyCode.Space))
-        {
-            rigidBody.AddRelativeForce(Vector3.up * thrustSpeed * Time.deltaTime);
-            leftThrustParticle.Play();
-            rightThrustParticle.Play();
-            if (!audioSource.isPlaying)
-                audioSource.PlayOneShot(thrustSound);
-        }
+            Thrust();
         else
             audioSource.Stop();
     }
 
-    void Rotate()
+    /// <summary>
+    /// Thrusting.
+    /// </summary>
+    void Thrust()
+    {
+        rigidBody.AddRelativeForce(Vector3.up * thrustSpeed * Time.deltaTime);
+        leftThrustParticle.Play();
+        rightThrustParticle.Play();
+        if (!audioSource.isPlaying)
+            audioSource.PlayOneShot(thrustSound);
+    }
+
+    /// <summary>
+    /// Processing to rotate.
+    /// </summary>
+    void ProcessingRotate()
     {
         playerOnGround = GetComponent<CollisionHandler>().playerOnGround;
         if (!playerOnGround)
-        {
-            rigidBody.freezeRotation = true;
-            if (Input.GetKey(KeyCode.A))
-            {
-                transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
-                rightRotatingThrustParticle.Play();
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
-                leftRotatingThrustParticle.Play();
-            }
-            rigidBody.freezeRotation = false;
-        }
+            Rotating();
+    }
+
+    /// <summary>
+    /// Rotating.
+    /// </summary>
+    void Rotating()
+    {
+        rigidBody.freezeRotation = true;
+        if (Input.GetKey(KeyCode.A))
+            RotatingLeft();
+        else if (Input.GetKey(KeyCode.D))
+            RotatingRight();
+        rigidBody.freezeRotation = false;
+    }
+
+    void RotatingRight()
+    {
+        transform.Rotate(Vector3.back * rotationSpeed * Time.deltaTime);
+        leftRotatingThrustParticle.Play();
+    }
+
+    void RotatingLeft()
+    {
+        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        rightRotatingThrustParticle.Play();
     }
 }

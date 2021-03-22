@@ -18,31 +18,42 @@ public class CollisionHandler : MonoBehaviour
     const float levelLoadDelay = 1f;
     bool isTransitioning;
     public bool playerOnGround;
+    int currentSceneIndex;
+
+
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         currentState = PlayerState.alive;
         isTransitioning = false;
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (!isTransitioning)
+            CheckColission(collision);
+    }
+
+    /// <summary>
+    /// Checking what the rocket collided with
+    /// </summary>
+    /// <param name="collision"></param>
+    void CheckColission(Collision collision)
+    {
+        switch (collision.gameObject.tag)
         {
-            switch (collision.gameObject.tag)
-            {
-                case "Launch Pad":
-                    playerOnGround = true;
-                    break;
-                case "Button":
-                    StartCollisionSequence();
-                    break;
-                default:
-                    currentState = PlayerState.dead;
-                    StartCollisionSequence();
-                    break;
-            }
+            case "Launch Pad":
+                playerOnGround = true;
+                break;
+            case "Button":
+                StartCollisionSequence();
+                break;
+            default:
+                currentState = PlayerState.dead;
+                StartCollisionSequence();
+                break;
         }
     }
 
@@ -52,27 +63,45 @@ public class CollisionHandler : MonoBehaviour
             playerOnGround = false;
     }
 
+    /// <summary>
+    /// Collision logic support. Movement disables and checks player state.
+    /// </summary>
     void StartCollisionSequence()
     {
         GetComponent<Movement>().enabled = false;
         audioSource.Stop();
 
         if (currentState == PlayerState.alive)
-        {
-            isTransitioning = true;
-            audioSource.PlayOneShot(winSound);
-            winParticleSystem.Play();
-            Invoke("LoadNextLevel", levelLoadDelay);
-        }
+            PrepareToNextLevel();
         else
-        {
-            isTransitioning = true;
-            audioSource.PlayOneShot(loseSound);
-            loseParticleSystem.Play();
-            Invoke("ReloadLevel", 1f);
-        }
+            PrepareToRestartLevel();
     }
 
+    /// <summary>
+    /// Preparing to restarting current level. Playing lose sound and lose particles. Invoking method that restarts current level.
+    /// </summary>
+    void PrepareToRestartLevel()
+    {
+        isTransitioning = true;
+        audioSource.PlayOneShot(loseSound);
+        loseParticleSystem.Play();
+        Invoke("RestartLevel", 1f);
+    }
+
+    /// <summary>
+    /// Preparing to loading next level. Playing win sound and win particles. Invoking method that loads next level.
+    /// </summary>
+    void PrepareToNextLevel()
+    {
+        isTransitioning = true;
+        audioSource.PlayOneShot(winSound);
+        winParticleSystem.Play();
+        Invoke("LoadNextLevel", levelLoadDelay);
+    }
+
+    /// <summary>
+    /// If next level exists - load next level. If not - load first level;
+    /// </summary>
     void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -83,10 +112,11 @@ public class CollisionHandler : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
 
-    void ReloadLevel()
+    /// <summary>
+    /// Restarting current level
+    /// </summary>
+    void RestartLevel()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        
         SceneManager.LoadScene(currentSceneIndex);
     }
 }
