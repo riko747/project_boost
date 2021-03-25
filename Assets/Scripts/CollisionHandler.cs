@@ -85,7 +85,7 @@ public class CollisionHandler : MonoBehaviour
         isTransitioning = true;
         audioSource.PlayOneShot(loseSound);
         loseParticleSystem.Play();
-        Invoke("RestartLevel", 1f);
+        Invoke("RestartLevel", levelLoadDelay);
     }
 
     /// <summary>
