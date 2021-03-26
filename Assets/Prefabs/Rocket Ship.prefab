@@ -518,6 +518,7 @@ GameObject:
   - component: {fileID: 192243253}
   - component: {fileID: 2636352417314462202}
   - component: {fileID: 192243247}
+  - component: {fileID: 4712392295599417395}
   m_Layer: 0
   m_Name: Rocket Ship
   m_TagString: Untagged
@@ -712,6 +713,18 @@ MonoBehaviour:
   thrustSound: {fileID: 8300000, guid: 227785617e14bd94695a530095f1c447, type: 3}
   thrustSpeed: 20
   rotationSpeed: 120
+--- !u!114 &4712392295599417395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6811891862544212993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c10db3bf4c4b84ea9ba0defbf8c9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7085700881112314195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,14 +1625,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3553fd250eb92d4091bebde350c6739, type: 3}
---- !u!4 &6816547938325090648 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4940884351362868, guid: a3553fd250eb92d4091bebde350c6739, type: 3}
-  m_PrefabInstance: {fileID: 6811891861866313324}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &6644911731096083216 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 198100719057022332, guid: a3553fd250eb92d4091bebde350c6739, type: 3}
+  m_PrefabInstance: {fileID: 6811891861866313324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6816547938325090648 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4940884351362868, guid: a3553fd250eb92d4091bebde350c6739, type: 3}
   m_PrefabInstance: {fileID: 6811891861866313324}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6811891862483892585
