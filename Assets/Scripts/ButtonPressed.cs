@@ -8,10 +8,12 @@ public class ButtonPressed : MonoBehaviour
     float buttonPressedYPosition = 0.4f;
     bool buttonIsPressed = false;
 
+    Vector3 startingPosition;
     Vector3 targetPosition;
     void Start()
     {
-        targetPosition = new Vector3(transform.position.x, transform.position.y - buttonPressedYPosition, transform.position.z);
+        startingPosition = transform.position;
+        targetPosition = new Vector3(startingPosition.x, startingPosition.y - buttonPressedYPosition, startingPosition.z);
     }
 
     void FixedUpdate()
