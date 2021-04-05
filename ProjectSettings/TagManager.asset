@@ -7,6 +7,8 @@ TagManager:
   - Launch Pad
   - Obstacle
   - Button
+  - Left Turbine
+  - Right Turbine
   layers:
   - Default
   - TransparentFX
